@@ -1,6 +1,6 @@
 category: Authentication
 commonfields:
-  id: Workday
+  id: Workdayd
   version: -1
 configuration:
 - defaultvalue: https://wd5-impl-services1.workday.com/ccx/service
