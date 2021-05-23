@@ -1,11 +1,11 @@
 category: Authentication
 commonfields:
-  id: Workdayd
+  id: Workday
   version: -1
 configuration:
 - defaultvalue: https://wd5-impl-services1.workday.com/ccx/service
   display: Server URL (e.g. https://example.net)
-  name: base_url
+  name: base_urls
   required: true
   type: 0
 - display: Username
