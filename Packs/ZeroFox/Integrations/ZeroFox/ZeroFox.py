@@ -728,8 +728,6 @@ def test_module():
 
 def main():
     commands = {
-        'test-module': test_module,
-        'zerofox-get-alert': get_alert_command,
         'zerofox-alert-user-assignment': alert_user_assignment_command,
         'zerofox-close-alert': close_alert_command,
         'zerofox-open-alert': open_alert_command,
