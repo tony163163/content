@@ -697,7 +697,6 @@ def main():
     demisto.info(f'Command being called is {command}')
     # Switch case
     commands = {
-        'test-module': module_test_command,
         'alienvaultotx-get-indicators': get_indicators_command
     }
     try:
