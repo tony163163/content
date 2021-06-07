@@ -1020,8 +1020,12 @@ def main():
             pack.cleanup()
             continue
 
-        task_status = pack.format_metadata(user_metadata, index_folder_path, packs_dependencies_mapping, build_number,
+        task_status, missing_details = pack.format_metadata(user_metadata, index_folder_path, packs_dependencies_mapping, build_number,
                                            current_commit_hash, pack_was_modified, statistics_handler)
+        if missing_details and pack != packs_list[-1]:
+            packs_list.append(pack)
+            continue
+
         if not task_status:
             pack.status = PackStatus.FAILED_METADATA_PARSING.name
             pack.cleanup()

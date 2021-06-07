@@ -613,7 +613,7 @@ class Pack(object):
 
         if self._pack_name != GCPConfig.BASE_PACK:  # check that current pack isn't Base Pack in order to prevent loop
             dependencies_ids.add(GCPConfig.BASE_PACK)  # Base pack is always added as pack dependency
-
+        missing_details = False
         for dependency_pack_id in dependencies_ids:
             dependency_metadata_path = os.path.join(index_folder_path, dependency_pack_id, Pack.METADATA)
 
@@ -623,9 +623,10 @@ class Pack(object):
                     dependencies_data_result[dependency_pack_id] = dependency_metadata
             else:
                 logging.warning(f"{self._pack_name} pack dependency with id {dependency_pack_id} was not found")
+                missing_details = True
                 continue
 
-        return dependencies_data_result
+        return dependencies_data_result, missing_details
 
     def _create_changelog_entry(self, release_notes, version_display_name, build_number, pack_was_modified=False,
                                 new_version=True, initial_release=False):
@@ -1702,7 +1703,7 @@ class Pack(object):
                 user_metadata['displayedImages'] = packs_dependencies_mapping.get(
                     self._pack_name, {}).get('displayedImages', [])
                 logging.info(f"Adding auto generated display images for {self._pack_name} pack")
-            dependencies_data = self._load_pack_dependencies(index_folder_path,
+            dependencies_data, missing_details = self._load_pack_dependencies(index_folder_path,
                                                              user_metadata.get('dependencies', {}),
                                                              user_metadata.get('displayedImages', []))
 
@@ -1720,7 +1721,7 @@ class Pack(object):
             logging.exception(f"Failed in formatting {self._pack_name} pack metadata. Additional Info: {str(e)}")
 
         finally:
-            return task_status
+            return task_status, missing_details
 
     @staticmethod
     def pack_created_in_time_delta(pack_name, time_delta: timedelta, index_folder_path: str) -> bool:
