@@ -963,6 +963,7 @@ def main():
     packs_list = [Pack(pack_name, os.path.join(extract_destination_path, pack_name)) for pack_name in pack_names
                   if os.path.exists(os.path.join(extract_destination_path, pack_name))]
     diff_files_list = content_repo.commit(current_commit_hash).diff(content_repo.commit(previous_commit_hash))
+    logging.info(f'diff_files_list: {diff_files_list}')
 
     # taking care of private packs
     is_private_content_updated, private_packs, updated_private_packs_ids = handle_private_content(
@@ -1015,7 +1016,8 @@ def main():
             continue
 
         task_status, missing_details = pack.format_metadata(user_metadata, index_folder_path, packs_dependencies_mapping, build_number,
-                                           current_commit_hash, pack_was_modified, statistics_handler)
+                                           current_commit_hash, pack_was_modified, statistics_handler, pack_names)
+
         if missing_details and pack != packs_list[-1]:
             packs_list.append(pack)
             continue
