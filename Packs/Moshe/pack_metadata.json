@@ -1,5 +1,5 @@
 {
-    "name": "Access",
+    "name": "Moshe",
     "description": "This Content Pack automates response to unauthorised access incidents and contains customer access incident views and layouts to aid investigation.",
     "support": "xsoar",
     "currentVersion": "1.0.0",
@@ -12,7 +12,6 @@
     ],
     "tags": [],
     "useCases": [
-        "Access"
     ],
     "keywords": [],
     "dependencies": {}
