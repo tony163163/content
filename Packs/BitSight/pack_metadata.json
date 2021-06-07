@@ -11,5 +11,11 @@
     ],
     "tags": [],
     "useCases": [],
-    "keywords": []
+    "keywords": [],
+    "dependencies": {
+        "bitTest": {
+            "mandatory": false,
+            "display_name": "bitTest"
+        }
+    }
 }
