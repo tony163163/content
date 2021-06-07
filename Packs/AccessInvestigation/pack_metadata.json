@@ -32,9 +32,9 @@
             "mandatory": true,
             "display_name": "Common Scripts"
         },
-        "Moshe": {
+        "Access": {
             "mandatory": true,
-            "display_name": "Moshe"
+            "display_name": "Access"
         }
     }
 }
