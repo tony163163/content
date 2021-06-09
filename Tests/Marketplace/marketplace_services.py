@@ -100,6 +100,7 @@ class Pack(object):
         self._keywords = None  # initialized in enhance_pack_attributes function
         self._dependencies = None  # initialized in enhance_pack_attributes function
         self._pack_statistics_handler = None  # initialized in enhance_pack_attributes function
+        self._is_missing_details = False
 
     @property
     def name(self):
@@ -306,6 +307,12 @@ class Pack(object):
         """ str: the list of uploaded integration images
         """
         return self._uploaded_integration_images
+
+    @property
+    def is_missing_details(self):
+        """ bool: whether the as missing details or not.
+        """
+        return self._is_missing_details
 
     def _get_latest_version(self):
         """ Return latest semantic version of the pack.
@@ -622,14 +629,14 @@ class Pack(object):
                     dependency_metadata = json.load(metadata_file)
                     dependencies_data_result[dependency_pack_id] = dependency_metadata
             elif dependency_pack_id in pack_names:
-                logging.warning(f"Passes the {self._pack_name} at the end because it still mising details on dependency with id {dependency_pack_id}")
-                missing_details = True
+                logging.warning(f"{self._pack_name} pack dependency with id {dependency_pack_id} was not found Adds it to the list for further treatment")
+                self._is_missing_details = True
                 continue
             else:
                 logging.warning(f"{self._pack_name} pack dependency with id {dependency_pack_id} was not found")
                 continue
 
-        return dependencies_data_result, missing_details
+        return dependencies_data_result
 
     def _create_changelog_entry(self, release_notes, version_display_name, build_number, pack_was_modified=False,
                                 new_version=True, initial_release=False):
@@ -1711,7 +1718,7 @@ class Pack(object):
                 user_metadata['displayedImages'] = packs_dependencies_mapping.get(
                     self._pack_name, {}).get('displayedImages', [])
                 logging.info(f"Adding auto generated display images for {self._pack_name} pack")
-            dependencies_data, missing_details = self._load_pack_dependencies(index_folder_path,
+            dependencies_data = self._load_pack_dependencies(index_folder_path,
                                                              user_metadata.get('dependencies', {}),
                                                              user_metadata.get('displayedImages', []), pack_names)
 
@@ -1729,7 +1736,7 @@ class Pack(object):
             logging.exception(f"Failed in formatting {self._pack_name} pack metadata. Additional Info: {str(e)}")
 
         finally:
-            return task_status, missing_details
+            return task_status
 
     @staticmethod
     def pack_created_in_time_delta(pack_name, time_delta: timedelta, index_folder_path: str) -> bool:
