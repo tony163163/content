@@ -830,7 +830,6 @@ def get_packs_summary(packs_list):
                      pack.status == PackStatus.PACK_ALREADY_EXISTS.name
                      or pack.status == PackStatus.PACK_IS_NOT_UPDATED_IN_RUNNING_BUILD.name]
     failed_packs = [pack for pack in packs_list if pack not in successful_packs and pack not in skipped_packs]
-
     return successful_packs, skipped_packs, failed_packs
 
 
@@ -1005,7 +1004,7 @@ def main():
 
         if missing_details and pack != packs_list[-1]:
             packs_list.append(pack)
-            break
+            continue
 
         if not task_status:
             pack.status = PackStatus.FAILED_METADATA_PARSING.name
