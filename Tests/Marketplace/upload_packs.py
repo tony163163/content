@@ -1004,8 +1004,8 @@ def main():
                                            current_commit_hash, pack_was_modified, statistics_handler, pack_names)
 
         if missing_details and pack != packs_list[-1]:
-            packs_list.append(packs_list.pop(packs_list.index(pack)))
-            continue
+            packs_list.append(pack)
+            break
 
         if not task_status:
             pack.status = PackStatus.FAILED_METADATA_PARSING.name

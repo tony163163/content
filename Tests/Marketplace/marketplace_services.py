@@ -624,7 +624,7 @@ class Pack(object):
             elif dependency_pack_id in pack_names:
                 logging.warning(f"Passes the {self._pack_name} at the end because it still mising details on dependency with id {dependency_pack_id}")
                 missing_details = True
-                break
+                continue
             else:
                 logging.warning(f"{self._pack_name} pack dependency with id {dependency_pack_id} was not found")
                 continue
@@ -1714,8 +1714,6 @@ class Pack(object):
             dependencies_data, missing_details = self._load_pack_dependencies(index_folder_path,
                                                              user_metadata.get('dependencies', {}),
                                                              user_metadata.get('displayedImages', []), pack_names)
-            if missing_details:
-                return True, missing_details
 
             self._enhance_pack_attributes(
                 user_metadata, index_folder_path, pack_was_modified, dependencies_data, statistics_handler
