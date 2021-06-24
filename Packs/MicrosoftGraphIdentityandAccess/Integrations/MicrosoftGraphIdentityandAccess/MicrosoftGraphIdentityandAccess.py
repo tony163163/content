@@ -1,5 +1,6 @@
 """
 An integration to MS Graph Identity and Access endpoint.
+
 https://docs.microsoft.com/en-us/graph/api/resources/serviceprincipal?view=graph-rest-1.0
 """
 

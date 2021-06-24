@@ -1,4 +1,5 @@
 """
+
 An integration to MS Graph Service Principals endpoint.
 https://docs.microsoft.com/en-us/graph/api/resources/serviceprincipal?view=graph-rest-1.0
 """
