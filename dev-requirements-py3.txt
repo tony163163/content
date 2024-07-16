@@ -9,15 +9,18 @@ ruamel.yaml<0.17
 pipenv==2020.11.15
 autopep8==1.5.4
 mypy==0.782
-networkx==2.5
-gitpython==3.1.11
+networkx==2.6
+gitpython==3.1.41
 beautifulsoup4==4.9.3
 pypdf2==1.26.0
 freezegun==0.3.12
 vulture==1.5
 git+https://github.com/coyo8/parinx.git@6493798ceba8089345d970f71be4a896eb6b081d#egg=parinx
-pylint==2.6.0
+pylint==2.7.0
 coloredlogs==15.0
 pandas==1.2.0
 timeout-decorator==0.5.0
 sendgrid==6.6.0
+numpy>=1.22.2 # not directly required, pinned by Snyk to avoid a vulnerability
+urllib3>=2.2.2 # not directly required, pinned by Snyk to avoid a vulnerability
+zipp>=3.19.1 # not directly required, pinned by Snyk to avoid a vulnerability
